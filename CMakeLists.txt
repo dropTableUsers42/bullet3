@@ -25,7 +25,7 @@ SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
 
 OPTION(USE_DOUBLE_PRECISION "Use double precision"	OFF)
 SET(CLAMP_VELOCITIES "0" CACHE STRING "Clamp rigid bodies' velocity to this value, if larger than zero. Useful to prevent floating point errors or in general runaway velocities in complex scenarios")
-OPTION(USE_GRAPHICAL_BENCHMARK "Use Graphical Benchmark" ON)
+OPTION(USE_GRAPHICAL_BENCHMARK "Use Graphical Benchmark" OFF)
 OPTION(BUILD_SHARED_LIBS "Use shared libraries" OFF)
 OPTION(USE_SOFT_BODY_MULTI_BODY_DYNAMICS_WORLD "Use btSoftMultiBodyDynamicsWorld" ON)
 OPTION(USE_OPENVR "Use OpenVR for virtual reality" OFF)
@@ -222,7 +222,7 @@ ENDIF(INTERNAL_CREATE_MSVC_RELATIVE_PATH_PROJECTFILES)
 ENDIF (WIN32)
 
 
-OPTION(BUILD_CPU_DEMOS "Build original Bullet CPU examples" ON)
+OPTION(BUILD_CPU_DEMOS "Build original Bullet CPU examples" OFF)
 
 
 
@@ -357,8 +357,8 @@ IF(BUILD_PYBULLET)
 	FIND_PACKAGE(PythonLibs)
 
 	OPTION(BUILD_PYBULLET_NUMPY "Set when you want to build pybullet with NumPy support" OFF)
-	OPTION(BUILD_PYBULLET_ENET "Set when you want to build pybullet with enet UDP networking support" ON)
-	OPTION(BUILD_PYBULLET_CLSOCKET "Set when you want to build pybullet with enet TCP networking support" ON)
+	OPTION(BUILD_PYBULLET_ENET "Set when you want to build pybullet with enet UDP networking support" OFF)
+	OPTION(BUILD_PYBULLET_CLSOCKET "Set when you want to build pybullet with enet TCP networking support" OFF)
 
 	OPTION(BUILD_PYBULLET_MAC_USE_PYTHON_FRAMEWORK "Set when you want to use the Python Framework on Mac" OFF)
 
@@ -409,10 +409,10 @@ IF(BUILD_BULLET3)
 
 			OPTION(BUILD_OPENGL3_DEMOS "Set when you want to build the OpenGL3+ demos" OFF)
 		ELSE()
-			OPTION(BUILD_OPENGL3_DEMOS "Set when you want to build the OpenGL3+ demos" ON)
+			OPTION(BUILD_OPENGL3_DEMOS "Set when you want to build the OpenGL3+ demos" OFF)
 		ENDIF()
 	ELSE()
-		OPTION(BUILD_OPENGL3_DEMOS "Set when you want to build Bullet 3 OpenGL3+ demos" ON)
+		OPTION(BUILD_OPENGL3_DEMOS "Set when you want to build Bullet 3 OpenGL3+ demos" OFF)
 	ENDIF()
 ELSE(BUILD_BULLET3)
 	unset(BUILD_OPENGL3_DEMOS CACHE)
@@ -426,7 +426,7 @@ ELSE()
 	ADD_DEFINITIONS(-DNO_OPENGL3)
 ENDIF(BUILD_OPENGL3_DEMOS)
 
-OPTION(BUILD_BULLET2_DEMOS "Set when you want to build the Bullet 2 demos" ON)
+OPTION(BUILD_BULLET2_DEMOS "Set when you want to build the Bullet 2 demos" OFF)
 IF(BUILD_BULLET2_DEMOS)
 
 	IF(EXISTS ${BULLET_PHYSICS_SOURCE_DIR}/examples AND IS_DIRECTORY ${BULLET_PHYSICS_SOURCE_DIR}/examples)
@@ -437,7 +437,7 @@ ENDIF(BUILD_BULLET2_DEMOS)
 
 
 
-OPTION(BUILD_EXTRAS "Set when you want to build the extras" ON)
+OPTION(BUILD_EXTRAS "Set when you want to build the extras" OFF)
 IF(BUILD_EXTRAS)
   SUBDIRS(Extras)
 ENDIF(BUILD_EXTRAS)
@@ -447,10 +447,10 @@ ENDIF(BUILD_EXTRAS)
 SUBDIRS(src)
 
 IF("${CMAKE_GENERATOR}" MATCHES "Unix Makefiles")
-	OPTION(INSTALL_LIBS "Set when you want to install libraries" ON)
+	OPTION(INSTALL_LIBS "Set when you want to install libraries" OFF)
 ELSE()
 	IF(APPLE AND FRAMEWORK)
-		OPTION(INSTALL_LIBS "Set when you want to install libraries" ON)
+		OPTION(INSTALL_LIBS "Set when you want to install libraries" OFF)
 	ELSE()
 #by default, don't enable the 'INSTALL' option for Xcode and MSVC projectfiles
 		OPTION(INSTALL_LIBS "Set when you want to install libraries" OFF)
@@ -462,7 +462,7 @@ IF(INSTALL_LIBS)
 	#INSTALL of other files requires CMake 2.6
 	IF(BUILD_EXTRAS)
 		IF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} GREATER 2.5)
-			OPTION(INSTALL_EXTRA_LIBS "Set when you want extra libraries installed" ON)
+			OPTION(INSTALL_EXTRA_LIBS "Set when you want extra libraries installed" OFF)
 		ENDIF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} GREATER 2.5)
 	ENDIF(BUILD_EXTRAS)
 
@@ -482,7 +482,7 @@ IF(INSTALL_LIBS)
 ENDIF()
 
 
-OPTION(BUILD_UNIT_TESTS "Build Unit Tests"	ON)
+OPTION(BUILD_UNIT_TESTS "Build Unit Tests"	OFF)
 
 IF (BUILD_UNIT_TESTS)
 	ENABLE_TESTING()
@@ -502,7 +502,7 @@ configure_file 	( ${CMAKE_CURRENT_SOURCE_DIR}/BulletConfig.cmake.in
 					${CMAKE_CURRENT_BINARY_DIR}/BulletConfig.cmake
 					@ONLY ESCAPE_QUOTES
 				)
-OPTION(INSTALL_CMAKE_FILES "Install generated CMake files" ON)
+OPTION(INSTALL_CMAKE_FILES "Install generated CMake files" OFF)
 
 IF (INSTALL_CMAKE_FILES)
 	install ( FILES ${CMAKE_CURRENT_SOURCE_DIR}/UseBullet.cmake
